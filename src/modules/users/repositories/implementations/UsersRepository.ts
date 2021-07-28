@@ -2,7 +2,7 @@ import { User } from "../../model/User";
 import { IUsersRepository, ICreateUserDTO } from "../IUsersRepository";
 
 class UsersRepository implements IUsersRepository {
-  private users: User[] = [];
+  private users: User[];
 
   private static INSTANCE: UsersRepository;
 
@@ -35,19 +35,21 @@ class UsersRepository implements IUsersRepository {
   }
 
   findById(id: string): User | undefined {
-    const user: User = new User();
+    const user = this.users.find((user) => user.id === id);
 
     return user;
   }
 
   findByEmail(email: string): User | undefined {
-    const user: User = new User();
+    const user = this.users.find((user) => user.email === email);
 
     return user;
   }
 
   turnAdmin(receivedUser: User): User {
-    const user: User = new User();
+    const user = this.users.find((user) => user.email === receivedUser.email);
+
+    user.admin = true;
 
     return user;
   }
