@@ -18,6 +18,16 @@ class UsersRepository implements IUsersRepository {
     return UsersRepository.INSTANCE;
   }
 
+  isAdmin(user_id: string): boolean {
+    const user = this.findById(user_id);
+
+    if (!user.admin) {
+      return false;
+    }
+
+    return true;
+  }
+
   create({ name, email }: ICreateUserDTO): User {
     const user: User = new User();
 
@@ -55,9 +65,7 @@ class UsersRepository implements IUsersRepository {
   }
 
   list(): User[] {
-    const user: User = new User();
-
-    return [user];
+    return this.users;
   }
 }
 
